@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYS.OVERRIDE — The Unseen Sovereign</title>
+<style>
+:root{--red:#ff1838;--cyan:#67e8ff;--ink:#07080d;--panel:rgba(5,8,14,.82)}
+*{box-sizing:border-box}body{margin:0;background:#020307;color:#eee;font-family:Inter,system-ui,Arial,sans-serif;overflow:hidden}
+#scene{position:relative;width:100vw;height:100vh;background:radial-gradient(circle at 50% 48%,#20202b 0,#0b0b12 35%,#020307 78%);overflow:hidden}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle,transparent 40%,rgba(0,0,0,.78) 100%)}
+.stone{position:absolute;inset:0;opacity:.5;background-image:linear-gradient(90deg,transparent 0 12%,#16151a 12.2% 12.8%,transparent 13% 29%,#121116 29.2% 30%,transparent 30.2% 48%,#17161b 48.2% 49%,transparent 49.2% 72%,#111016 72.2% 73%,transparent 73.2% 88%,#15141a 88.2% 89%,transparent 89.2%),linear-gradient(#0b0b10 0 8%,transparent 8% 21%,#101016 21% 22%,transparent 22% 43%,#0d0d12 43% 44%,transparent 44% 67%,#121117 67% 68%,transparent 68%)}
+.title{position:absolute;top:28px;left:34px;letter-spacing:5px;font-weight:800;font-size:clamp(16px,2vw,25px);text-shadow:0 0 15px var(--red)}
+.subtitle{position:absolute;top:62px;left:36px;color:#777;font-size:11px;letter-spacing:3px}
+#hud{position:absolute;top:25px;right:28px;width:min(340px,42vw);font:12px monospace;color:#9defff;background:var(--panel);border:1px solid #28434a;padding:14px;box-shadow:0 0 30px #000}
+#hud b{color:var(--red)}.line{margin:4px 0}
+#monster{position:absolute;left:50%;top:51%;width:240px;height:180px;transform:translate(-50%,-50%);transition:all .45s ease;filter:drop-shadow(0 0 18px #2b0010)}
+.body{position:absolute;left:55px;top:45px;width:130px;height:95px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3b3a43,#111016 60%,#020204);border:3px solid #25151c;box-shadow:inset 0 0 30px #000}
+.eye{position:absolute;width:13px;height:13px;border-radius:50%;background:#f6f6ff;box-shadow:0 0 10px #fff,0 0 18px var(--red)}
+.e1{left:78px;top:57px}.e2{left:108px;top:50px}.e3{left:137px;top:58px}.e4{left:92px;top:83px}.e5{left:126px;top:82px}.e6{left:153px;top:78px}.e7{left:70px;top:87px}.leg{position:absolute;width:105px;height:8px;background:#17151b;border:2px solid #33212a;transform-origin:left center;box-shadow:0 0 8px #000}.l1{left:78px;top:63px;transform:rotate(210deg)}.l2{left:70px;top:83px;transform:rotate(185deg)}.l3{left:78px;top:106px;transform:rotate(160deg)}.l4{left:155px;top:64px;transform:rotate(-30deg)}.l5{left:160px;top:84px;transform:rotate(-3deg)}.l6{left:158px;top:105px;transform:rotate(24deg)}
+#kaelen{position:absolute;left:20%;bottom:19%;width:38px;height:100px;background:linear-gradient(90deg,#050508,#1a1a22,#050508);border-radius:15px 15px 5px 5px;box-shadow:0 0 25px #000}.head{position:absolute;left:7px;top:-36px;width:25px;height:34px;border-radius:50%;background:#17171c}.hair{position:absolute;left:1px;top:-42px;width:36px;height:38px;background:#050507;border-radius:50% 50% 35% 35%;transform:rotate(-5deg)}.eyeGlow{display:none;position:absolute;left:15px;top:-25px;width:5px;height:5px;background:var(--red);box-shadow:0 0 15px var(--red)}
+#aria{position:absolute;right:22%;bottom:19%;width:43px;height:115px;background:linear-gradient(90deg,#1d2030,#3b405d,#141620);border-radius:14px 14px 5px 5px;box-shadow:0 0 22px #05050b}.ariaHead{position:absolute;left:8px;top:-34px;width:27px;height:34px;border-radius:50%;background:#b88e77}.blade{position:absolute;right:-120px;top:10px;width:115px;height:8px;background:#bdf7ff;box-shadow:0 0 16px #55e9ff;transform:rotate(-20deg)}
+#pillar{position:absolute;left:15%;bottom:10%;width:85px;height:68%;background:linear-gradient(90deg,#09090e,#25242a 50%,#0b0a0e);clip-path:polygon(15% 0,90% 3%,100% 100%,0 100%)}
+#log{position:absolute;left:34px;bottom:30px;width:min(570px,55vw);min-height:110px;padding:15px;background:rgba(0,0,0,.7);border-left:3px solid var(--red);font:13px/1.55 monospace;color:#b8bec9;white-space:pre-wrap}
+#dialogue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);width:min(760px,80vw);text-align:center;font-size:clamp(14px,1.6vw,20px);font-weight:600;text-shadow:0 2px 8px #000;min-height:30px}
+button{position:absolute;right:28px;bottom:28px;background:#090b10;color:#fff;border:1px solid #4c4c58;padding:12px 18px;font:700 12px monospace;letter-spacing:2px;cursor:pointer}button:hover{border-color:var(--red);box-shadow:0 0 18px #ff183833}
+.flash{animation:flash .3s steps(2)}.purge{animation:purge .65s ease forwards}@keyframes flash{50%{filter:brightness(5) saturate(0)}}@keyframes purge{to{opacity:0;transform:translate(-50%,-50%) scale(.08) rotate(35deg);filter:brightness(5)}}
+#status{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font:800 20px monospace;color:var(--red);letter-spacing:3px;opacity:0;pointer-events:none}.show{animation:status 1.3s ease}@keyframes status{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}25%,70%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.2)}}
+</style></head>
+<body><main id="scene"><div class="stone"></div><div id="pillar"></div><div class="title">SYS.OVERRIDE</div><div class="subtitle">THE UNSEEN SOVEREIGN // EPISODE 01 // SEGMENT 0x00</div>
+<div id="hud"><div class="line">[ SYSTEM STATUS ]</div><div class="line">WORLD_INTEGRITY: <b id="integrity">61%</b></div><div class="line">ENTITY: <b>CORRUPTED_882</b></div><div class="line">KAELEN RANK: F</div><div class="line">TRUE ACCESS: <b>NULL</b></div></div>
+<div id="monster"><div class="body"></div><i class="eye e1"></i><i class="eye e2"></i><i class="eye e3"></i><i class="eye e4"></i><i class="eye e5"></i><i class="eye e6"></i><i class="eye e7"></i><i class="leg l1"></i><i class="leg l2"></i><i class="leg l3"></i><i class="leg l4"></i><i class="leg l5"></i><i class="leg l6"></i></div>
+<div id="kaelen"><div class="hair"></div><div class="head"></div><div class="eyeGlow"></div></div><div id="aria"><div class="ariaHead"></div><div class="blade"></div></div>
+<div id="status">[ PROCESS TERMINATED ]</div><div id="dialogue">"Keep moving! The System lied to us... it's a Corrupted Entity!"</div>
+<div id="log">[LOG] DUNGEON LINK ESTABLISHED\n[WARN] HEALING PROTOCOL FAILURE\n[SCAN] ROOT ENCRYPTION LOOP DETECTED\n[NULL] OBSERVING...</div><button id="next">EXECUTE NULL ▷</button><div class="vignette"></div></main>
+<script>
+const monster=document.querySelector('#monster'),status=document.querySelector('#status'),dialogue=document.querySelector('#dialogue'),log=document.querySelector('#log'),next=document.querySelector('#next'),kaelen=document.querySelector('#kaelen');
+let stage=0;
+const scenes=[
+['"High-level fire magic... wasted allocation. Barrier is running on a root-level encryption loop."','[NULL] TARGET ACQUIRED: CORRUPTED_ENTITY_ID_882\n[ANALYSIS] ROOT ENCRYPTION LOOP\n[ANALYSIS] BRUTE FORCE: INEFFICIENT'], '"Time to purge the memory."','[USER: NULL]\n[TARGET: CORRUPTED_ENTITY_ID_882]\n[SYSTEM COMMAND: OVERRIDE_MEMORY_ADDRESS]','"sudo kill -9"','[EXEC] MEMORY OVERRIDE\n[EXEC] SAFETY PROTOCOLS: BYPASSED\n[EXEC] TERMINATION SIGNAL SENT]','"W-What... what was that?"','[LOG] PROCESS TERMINATED. NO TRACE REMAINS.\n[NULL] RETURNING TO F-RANK PERSONA']];
+function advance(){
+ stage++;
+ if(stage===1){dialogue.textContent=scenes[0][0];log.textContent=scenes[0][1];next.textContent='CONTINUE ▷';kaelen.style.boxShadow='0 0 28px #ff183855'}
+ else if(stage===2){dialogue.textContent=scenes[1];log.textContent=scenes[2];next.textContent='OVERRIDE ▷';document.querySelector('.eyeGlow').style.display='block'}
+ else if(stage===3){dialogue.textContent=scenes[3];log.textContent=scenes[4];next.textContent='TERMINATE ▷';status.classList.remove('show');void status.offsetWidth;status.classList.add('show');document.querySelector('#scene').classList.add('flash');setTimeout(()=>document.querySelector('#scene').classList.remove('flash'),300);}
+ else if(stage===4){monster.classList.add('purge');document.querySelector('#integrity').textContent='97%';dialogue.textContent='"Exploded? No... that wasn\'t an explosion. That was an execution..."';log.textContent=scenes[5];next.textContent='FADE TO BLACK ▷';}
+ else if(stage===5){document.querySelector('#scene').style.transition='filter 1.5s,opacity 1.5s';document.querySelector('#scene').style.filter='brightness(0)';dialogue.textContent='"Let the world worship their flashy high-rank heroes. From the dark, I run the root system."';log.textContent=scenes[6];next.textContent='RESTART ↻';}
+ else location.reload();
+}next.addEventListener('click',advance);document.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='Enter')advance()});
+</script></body></html>
